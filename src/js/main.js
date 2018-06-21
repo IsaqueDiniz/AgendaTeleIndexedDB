@@ -1,3 +1,9 @@
+const teste = {
+	nome: "Isaque",
+	telefone: "92032032",
+	email: "isaquediniz3713@gmail.com"
+}
+
 const
 	nome = document.getElementById('nome'),
 	numero = document.getElementById('numero'),
@@ -17,21 +23,22 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 		// Função callback de erro
 		console.log('Houve algum erro:Erro ' + event.target.errorCode);
 	});
+	
+	request.addEventListener('upgradeneeded', function(event) {
+		// Manipuação do dB
+			
+
+
+
+	});
 
 	request.addEventListener('success', function(event) {
 		// Função callback de sucesso
 		console.log('Banco aberto com sucesso!');
-			db = request.result; /*Atribui à 'db' o resutlado da requisição*/
+			db = request.result; //Atribui à 'db' o resutlado da requisição
 	});
 
 // Manipulação do dB e criação de ObjStores
-
-	request.addEventListener('upgradeneeded', function(event) {
-	// Manipuação do dB
-		let db = event.target.result; /*Cria e atribui à var db LOCAL o resultado da atualização do dB*/
-		let	objStores = db.createObjectStore( 'Lista/Tabela', { keyPath: 'nome'} ); 
-		// Cria o objectStore 'Lista/Tabela' setando o keyPath(chave de busca/key) como sendo a propriedade nome do bando
-	});
 
 
 

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 * {
 	box-sizing: border-box;
 	padding: 0;
@@ -7,13 +10,11 @@
 
 body {
 	display: grid;
-	grid-template-columns: 30vw 2vw 65vw ;
-	grid-template-rows: [header]20vh [body]80vh;
-	grid-gap: 1.5 5vh;
-	grid-template-areas: "header header header "
-						 "aside  . section ";
+	grid-template-columns: 32vw  68vw ;
+	grid-template-rows: 15vh 85vh;
+	grid-template-areas: "header header "
+						 "aside  section ";
 	justify-items: center;
-	justify-content: center;
 	background: #f0f0f0;
 }	
 
@@ -22,11 +23,20 @@ body {
 		justify-self: stretch;
 		display: flex;
 		align-items: center;
-		background: lightgreen;
+		background: #794FCE;
+		padding-left: 2%;
 	}
 
+		header > img {
+			width: 5%;
+		}
+
 		h1.title {
-			font-family: 'NTR', serif;
+			font-family: 'Cabin', serif;
+			color: #F8BA39;
+			text-shadow: 1px 1px 1px #545454;
+			letter-spacing: 0.1em;
+			font-size: 40px;
 		}
 
 	aside {
@@ -35,26 +45,74 @@ body {
 		display: flex;
 		flex-direction: column;
 		padding: 5%;		
-		background: lightyellow;
+		background: #DEDFFF;
 	}
 
-		aside > input, aside button {
-			height: 5%;
-			margin: 2.5% auto;
-			border-radius: 5px 5px;
-			padding: 2.5%;
-		}
-		
+		aside hr { width: 80%; margin-top: 2.5%; }
 
-		input:focus {
-			box-shadow: 0px 0px 25px 10px lightblue;
+		aside > span {
+			color: #545454;
+			text-shadow: 1px 1px 1px #545454;
+			letter-spacing: 0.1em;
 		}
+
+		div.asideControlerBox {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			padding: 5%;
+		}
+
+			div.asideControlerBox > input {
+				width: 100%;
+				padding: 0.5em 5%;
+				margin: 5% 0;
+				font-size: 16px;
+				color: #794FCE;
+				letter-spacing: 0.05em;
+				font-style: italic;
+				background: #BABBE7;
+				border: 0;
+				font-weight: bold;
+				transition: 100ms ease-in;
+			}
+
+				input:focus {
+					transition: 100ms ease-out;
+					background: #DDCCFC; 
+					box-shadow: 0px 5px 5px  grey;
+
+				}
+
+			div.asideControlerBox > button {
+				align-self: center;
+				margin: 10%;
+				border: 2px solid transparent;
+				background: #794FCE;
+				padding: 0.5em 1.5em ;
+				border-radius: 5px 5px;
+				font-size: 1em;
+				color: #DEDFFF;
+				font-weight: bold;
+				cursor: pointer;
+				transition: 100ms ease-out;
+			}
+
+				div.asideControlerBox > button:hover {
+					transition: 100ms ease-in;
+					border-color: #794FCE;
+					color: #794FCE;
+					background: #DEDFFF;
+					box-shadow: 0px 5px 5px  grey;
+				}
 
 	section {
 		grid-area: section;
 		justify-self: stretch;
-		background: lightblue;
 		padding: 4% 5%;
+		overflow: auto;
+		background: #DDCCFC;
 	}
 
 		section table {
