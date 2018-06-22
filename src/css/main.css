@@ -82,6 +82,12 @@ body {
 				border-radius: 2px 2px;
 			}
 
+				div > input[type=number]::-webkit-inner-spin-button, 
+				div > input[type=number]::-webkit-outer-spin-button { 
+				  -webkit-appearance: none; 
+				  margin: 0;
+				}
+
 				input:focus {
 					transition: 100ms ease-out;
 					background: #DDCCFC; 
@@ -120,6 +126,7 @@ body {
 				padding: 0.5em 0.75em;
 				margin: 1em;
 				text-align: center;
+				box-shadow: 0px 5px 5px grey;
 			}
 /*
 				p.nomeAlert   { display: block; }

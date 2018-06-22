@@ -1,14 +1,3 @@
-const teste = {
-	nome: 'Isaque',
-	numero: '9404201',
-	email: 'sasiaisai'
-}
-
-const
-	nome = document.getElementById('nome'),
-	numero = document.getElementById('numero'),
-	email = document.getElementById('email');
-
 // INDEXEDDB
 // Verifica a exitência e suporte ao IDB
 window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
@@ -35,6 +24,7 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 				store = db.createObjectStore('Contatos', { keyPath: 'nome' }) /*define keyPath como sendo a proprieda "nome" do objeto*/
 		});
 
+		// FLUXO PROGRAMA CASO RESULTADO DA REQUISIÇÃO SEJA BEM SUCEDIDO
 		request.addEventListener('success', function(event) {
 			// Função callback de sucesso
 			console.log('Banco aberto com sucesso!');
@@ -50,24 +40,40 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 				// FLUXO DO PROGRAMA
 
 				const
-					inputs = document.getElementsByClassName('input'),
-					alertas = document.getElementsByClassName('Alert');
+					inputs = document.getElementsByClassName('input'), /*Pega todos inputs*/
+					alertas = document.getElementsByClassName('Alert'); /*Pega as mensagens*/
 
-					for (let i = 0; i < inputs.length; i++) {
 
-						inputs[i].addEventListener('input', function (event) {
-
+						inputs[0].addEventListener('input', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
+							/*Faz a manipulação da amostra da msg para cada elemento do loop*/
 							if (event.target.value == '' ) {
-								alertas[i].style.display = 'block';
+								alertas[0].style.display = 'block';
 							};
 							if (event.target.value !== '' ) {
-								alertas[i].style.display = 'none';
-							}
+								alertas[0].style.display = 'none';
+							};
 						});
-					};
 
+						inputs[1].addEventListener('input', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
+							/*Faz a manipulação da amostra da msg para cada elemento do loop*/
+							if (event.target.value == '' ) {
+								alertas[1].style.display = 'block';
+							};
+							if (event.target.value !== '' ) {
+								alertas[1].style.display = 'none';
+							};
+						});
 
-
+						inputs[2].addEventListener('input', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
+							/*Faz a manipulação da amostra da msg para cada elemento do loop*/
+							if (event.target.value == '' ) {
+								alertas[2].style.display = 'block';
+							};
+							if (event.target.value !== '' ) {
+								alertas[2].style.display = 'none';
+							};
+						});
+	
 				// FIM DO FLUXO DO PROGRAMA
 
 				tx.addEventListener('complete', function() {
@@ -75,9 +81,4 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 				});
 
 		});
-
-// Manipulação do dB e criação de ObjStores
-
-
-
 
