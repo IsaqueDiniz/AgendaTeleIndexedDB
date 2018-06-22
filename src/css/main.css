@@ -91,7 +91,7 @@ body {
 
 			div.asideControlerBox > button {
 				align-self: center;
-				margin: 10%;
+				margin: 5%;
 				border: 2px solid transparent;
 				background: #794FCE;
 				padding: 0.5em 1.5em ;
@@ -111,6 +111,20 @@ body {
 					box-shadow: 0px 5px 5px  grey;
 				}
 
+			aside div p {
+				display: none;
+				background: #F9B0B4;
+				color: #DC2121;
+				border: 2px solid #DC2121;
+				border-radius: 2px 2px;
+				padding: 0.5em 0.75em;
+				margin: 1em;
+				text-align: center;
+			}
+/*
+				p.nomeAlert   { display: block; }
+				p.numeroAlert { display: block; }
+				p.emailAlert  { display: block; }*/
 	section {
 		grid-area: section;
 		justify-self: stretch;

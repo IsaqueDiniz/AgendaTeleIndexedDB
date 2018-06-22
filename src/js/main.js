@@ -18,7 +18,7 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 
 		let
 			request = window.indexedDB.open('AgendaTelefônica', 1), /*Abre banco de dados e define a versão com um inteiro*/
-			db, /*Definada para manipulação do bando de dados*/
+			db, /*Definida para manipulação do bando de dados*/
 			tx, /*Define as transactios (transações)}*/
 			store, /*Instancia do db para criação e manipulação do objectStore*/
 			index; /*Define um index*/
@@ -47,13 +47,28 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 					console.log('Error:' + '' +  event.target.errorCode);
 				});
 
+				// FLUXO DO PROGRAMA
 
-				let isaque = store.get('Isaque');
-				
-				isaque.addEventListener('success', function() {
-					console.log(isaque.result)
-					console.log()
-				});
+				const
+					inputs = document.getElementsByClassName('input'),
+					alertas = document.getElementsByClassName('Alert');
+
+					for (let i = 0; i < inputs.length; i++) {
+
+						inputs[i].addEventListener('input', function (event) {
+
+							if (event.target.value == '' ) {
+								alertas[i].style.display = 'block';
+							};
+							if (event.target.value !== '' ) {
+								alertas[i].style.display = 'none';
+							}
+						});
+					};
+
+
+
+				// FIM DO FLUXO DO PROGRAMA
 
 				tx.addEventListener('complete', function() {
 					db.close(); // Fecha o banco de dados quando a tranzação é completada
