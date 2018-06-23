@@ -19,13 +19,12 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 		
 		request.addEventListener('upgradeneeded', function(event) {
 			// Manipuação do dB
-			let
-				db = request.result, /*Definida para criar e todo o banco de dados e instaciar as outras variaveis*/
-				store = db.createObjectStore('Contatos', { keyPath: 'nome' }) /*define keyPath como sendo a proprieda "nome" do objeto*/
+			db = event.target.result; /*Definida para criar e todo o banco de dados e instaciar as outras variaveis*/
+			let	store = db.createObjectStore('Contatos', { keyPath: 'nome' }); /*define keyPath como sendo a proprieda "nome" do objeto*/
 		});
-
 		// FLUXO PROGRAMA CASO RESULTADO DA REQUISIÇÃO SEJA BEM SUCEDIDO
 		request.addEventListener('success', function(event) {
+
 			// Função callback de sucesso
 			console.log('Banco aberto com sucesso!');
 				db = request.result; //Atribui à 'db' o resutlado da requisição bem sucedida
@@ -36,11 +35,8 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 					// Função callback da manipulação do banco;
 					console.log('Error:' + '' +  event.target.errorCode);
 				});
-
 				// FLUXO DO PROGRAMA
-
 				let inputsStateOK = null; /*Variavel que muda de acordo com o status dos inputs*/
-
 				const
 					inputs 	= document.getElementsByClassName('input'), /*Pega todos inputs*/
 					alertas = document.getElementsByClassName('Alert'),
@@ -61,35 +57,20 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 							};
 						});
 					};
-
 					if (inputsStateOK === false) {
 						sendBTN.disabled = true;
 					}
-
-					sendBTN.addEventListener('click', function (event) {
-
-
-
+					else 
+					{
+						sendBTN.disabled = false;
+						sendBTN.addEventListener('click', function (event) {
 						// Pega campo dos inputs para manipular
-						const 
-
-
-
-						
-					})
-						inputs[1].addEventListener('input', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
-							/*Faz a manipulação da amostra da msg para cada elemento do loop*/
+						store.put({nome: inputs[0].value,telefone: inputs[1].value, email: inputs[2].value});
 						});
-
-						inputs[2].addEventListener('input', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
-							/*Faz a manipulação da amostra da msg para cada elemento do loop*/
-						});
-	
+					};
 				// FIM DO FLUXO DO PROGRAMA
-
 				tx.addEventListener('complete', function() {
 					db.close(); // Fecha o banco de dados quando a tranzação é completada
 				});
-
 		});
 
