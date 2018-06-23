@@ -4,43 +4,19 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 	if(!window.indexedDB) { /*Se não há suporte, retorna um aviso*/
 		alert('Não há suporte')
 	}
+	let
+		request = window.indexedDB.open('AgendaTelefônica', 2), /*Abre banco de dados e define a versão com um inteiro*/
+		db, /*Definida para manipulação do bando de dados*/
+		tx, /*Define as transactios (transações)}*/
+		store, /*Instancia do db para criação e manipulação do objectStore*/
+		index; /*Define um index*/
 
-		let
-			request = window.indexedDB.open('AgendaTelefônica', 1), /*Abre banco de dados e define a versão com um inteiro*/
-			db, /*Definida para manipulação do bando de dados*/
-			tx, /*Define as transactios (transações)}*/
-			store, /*Instancia do db para criação e manipulação do objectStore*/
-			index; /*Define um index*/
+	let inputsStateOK = null; /*Variavel que muda de acordo com o status dos inputs*/
 
-		request.addEventListener('error', function(event) {
-			// Função callback de erro
-			console.log('Houve algum erro:Erro ' + event.target.errorCode);
-		});
-		
-		request.addEventListener('upgradeneeded', function(event) {
-			// Manipuação do dB
-			db = event.target.result; /*Definida para criar e todo o banco de dados e instaciar as outras variaveis*/
-			let	store = db.createObjectStore('Contatos', { keyPath: 'nome' }); /*define keyPath como sendo a proprieda "nome" do objeto*/
-		});
-		// FLUXO PROGRAMA CASO RESULTADO DA REQUISIÇÃO SEJA BEM SUCEDIDO
-		request.addEventListener('success', function(event) {
-
-			// Função callback de sucesso
-			console.log('Banco aberto com sucesso!');
-				db = request.result; //Atribui à 'db' o resutlado da requisição bem sucedida
-				tx = db.transaction('Contatos', 'readwrite'); // Define a tranzação no objectStore criado e define o tipo de transação
-				store = tx.objectStore('Contatos');
-
-				db.addEventListener('error', function(event) {
-					// Função callback da manipulação do banco;
-					console.log('Error:' + '' +  event.target.errorCode);
-				});
-				// FLUXO DO PROGRAMA
-				let inputsStateOK = null; /*Variavel que muda de acordo com o status dos inputs*/
-				const
-					inputs 	= document.getElementsByClassName('input'), /*Pega todos inputs*/
-					alertas = document.getElementsByClassName('Alert'),
-					sendBTN = document.getElementById('addBTN'); /*Pega as mensagens*/
+	const
+		inputs 	= document.getElementsByClassName('input'), /*Pega todos inputs*/
+		alertas = document.getElementsByClassName('Alert'),
+		sendBTN = document.getElementById('addBTN'); /*Pega as mensagens*/
 					
 					for ( let i = 0; i < inputs.length; i++) {
 						inputs[i].addEventListener('input', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
@@ -57,20 +33,43 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 							};
 						});
 					};
-					if (inputsStateOK === false) {
-						sendBTN.disabled = true;
-					}
-					else 
-					{
-						sendBTN.disabled = false;
-						sendBTN.addEventListener('click', function (event) {
-						// Pega campo dos inputs para manipular
-						store.put({nome: inputs[0].value,telefone: inputs[1].value, email: inputs[2].value});
-						});
-					};
-				// FIM DO FLUXO DO PROGRAMA
-				tx.addEventListener('complete', function() {
-					db.close(); // Fecha o banco de dados quando a tranzação é completada
-				});
+
+		request.addEventListener('error', function (event) {
+			console.log('Aconteceu um erro: ' + event.target.errorCode);
 		});
 
+		request.addEventListener('upgradeneeded', function (event) {
+			console.log('Banco Atualizado com sucesso');
+			db = event.target.result;
+			let store = db.createObjectStore('Contatos', { keyPath: 'nome' })
+		})
+
+		request.addEventListener('success', function (event) {
+			console.log('Banco aberto com sucesso');
+			db = event.target.result;
+			const adicionarContato = (function () {
+			
+			 tx = db.transaction(['Contatos'], 'readwrite');
+
+				tx.addEventListener('complete', function (event) {
+					console.log('Adicionado com sucesso')
+				});
+				tx.addEventListener('error', function (event) {
+					console.log('Houve um erro na transação: ' + event.target.erroCode);
+				});
+
+			let objectStore = tx.objectStore('Contatos');
+				objectStore.add( { nome: 'Isaque', telefone: '456465', email: 'hgajkghajkga' } )
+
+
+
+		})();
+		})
+
+		
+
+
+
+
+
+		
