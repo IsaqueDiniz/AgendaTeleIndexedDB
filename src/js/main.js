@@ -39,39 +39,50 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 
 				// FLUXO DO PROGRAMA
 
+				let inputsStateOK = null; /*Variavel que muda de acordo com o status dos inputs*/
+
 				const
-					inputs = document.getElementsByClassName('input'), /*Pega todos inputs*/
-					alertas = document.getElementsByClassName('Alert'); /*Pega as mensagens*/
-
-
-						inputs[0].addEventListener('input', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
+					inputs 	= document.getElementsByClassName('input'), /*Pega todos inputs*/
+					alertas = document.getElementsByClassName('Alert'),
+					sendBTN = document.getElementById('addBTN'); /*Pega as mensagens*/
+					
+					for ( let i = 0; i < inputs.length; i++) {
+						inputs[i].addEventListener('input', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
 							/*Faz a manipulação da amostra da msg para cada elemento do loop*/
 							if (event.target.value == '' ) {
-								alertas[0].style.display = 'block';
+								alertas[i].style.display = 'block';
+								sendBTN.disabled = true;
+								inputsStateOK = false;
 							};
 							if (event.target.value !== '' ) {
-								alertas[0].style.display = 'none';
+								alertas[i].style.display = 'none';
+								sendBTN.disabled = false;
+								inputsStateOK = true;
 							};
 						});
+					};
 
+					if (inputsStateOK === false) {
+						sendBTN.disabled = true;
+					}
+
+					sendBTN.addEventListener('click', function (event) {
+
+
+
+						// Pega campo dos inputs para manipular
+						const 
+
+
+
+						
+					})
 						inputs[1].addEventListener('input', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
 							/*Faz a manipulação da amostra da msg para cada elemento do loop*/
-							if (event.target.value == '' ) {
-								alertas[1].style.display = 'block';
-							};
-							if (event.target.value !== '' ) {
-								alertas[1].style.display = 'none';
-							};
 						});
 
 						inputs[2].addEventListener('input', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
 							/*Faz a manipulação da amostra da msg para cada elemento do loop*/
-							if (event.target.value == '' ) {
-								alertas[2].style.display = 'block';
-							};
-							if (event.target.value !== '' ) {
-								alertas[2].style.display = 'none';
-							};
 						});
 	
 				// FIM DO FLUXO DO PROGRAMA
