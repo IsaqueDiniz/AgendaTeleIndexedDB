@@ -34,6 +34,12 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 						});
 					};
 
+			if (inputsStateOK !== true) { /*Ativa ou desativa o botão de envio de acordo com os status dos inputs*/
+				sendBTN.disabled = true;
+			}else {
+				sendBTN.disabled = false;
+			}
+
 		request.addEventListener('error', function (event) {
 			console.log('Aconteceu um erro: ' + event.target.errorCode);
 		});
@@ -44,26 +50,46 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 			let store = db.createObjectStore('Contatos', { keyPath: 'nome' })
 		})
 
+
+		// Operação do banco de dados
 		request.addEventListener('success', function (event) {
 			console.log('Banco aberto com sucesso');
 			db = event.target.result;
-			const adicionarContato = (function () {
+
+				sendBTN.onclick = function (event) { /*Inicia a operação de contatos no banco de dados*/
+					
+					const Contatos = { /*Define o objeto que receberá os valores do input*/
+						nome : inputs[0].value,
+						telefone : inputs[1].value,
+						email : inputs[2].value
+					};
+
+					console.log(Contatos);
+
+				 tx = db.transaction(['Contatos'], 'readwrite');
+				 let objectStore = tx.objectStore('Contatos');
+	    			 objectStore.add(Contatos); /*Armazena o objeto no banco de dados*/
+
+	    			
+
+			}
+
+			// const adicionarContato = (function () {
 			
-			 tx = db.transaction(['Contatos'], 'readwrite');
 
-				tx.addEventListener('complete', function (event) {
-					console.log('Adicionado com sucesso')
-				});
-				tx.addEventListener('error', function (event) {
-					console.log('Houve um erro na transação: ' + event.target.erroCode);
-				});
+			// 	tx.addEventListener('complete', function (event) {
+			// 		console.log('Adicionado com sucesso')
+			// 	});
+			// 	tx.addEventListener('error', function (event) {
+			// 		console.log('Houve um erro na transação: ' + event.target.erroCode);
+			// 	});
 
-			let objectStore = tx.objectStore('Contatos');
-				objectStore.add( { nome: 'Isaque', telefone: '456465', email: 'hgajkghajkga' } )
-
+			// let objectStore = tx.objectStore('Contatos');
+			// 	objectStore.add( { nome: 'Isaque', telefone: '456465', email: 'hgajkghajkga' } )
 
 
-		})();
+
+			// })();
 		})
 
 		
