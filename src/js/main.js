@@ -47,7 +47,7 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 		request.addEventListener('upgradeneeded', function (event) {
 			console.log('Banco Atualizado com sucesso');
 			db = event.target.result;
-			let store = db.createObjectStore('Contatos', { keyPath: 'nome' })
+			let store = db.createObjectStore('Contatos', {autoIncrement : true }) // AutoIncrement define uma chave automatica para cada objeto adicionado ao banco de dados
 		})
 
 
@@ -56,6 +56,7 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 			console.log('Banco aberto com sucesso');
 			db = event.target.result;
 
+			// Função callback que adiciona dados ao banco
 				sendBTN.onclick = function (event) { /*Inicia a operação de contatos no banco de dados*/
 					
 					const Contatos = { /*Define o objeto que receberá os valores do input*/
@@ -63,34 +64,21 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 						telefone : inputs[1].value,
 						email : inputs[2].value
 					};
-
 					console.log(Contatos);
 
 				 tx = db.transaction(['Contatos'], 'readwrite');
+					
+					tx.oncomplete = function (event) {
+						console.log('Transação bem sucedida, adicionado ao banco')
+					};
+					tx.onerror = function (event) {
+						console.log('Erro ao adicionar ao banco');
+					}
+
 				 let objectStore = tx.objectStore('Contatos');
 	    			 objectStore.add(Contatos); /*Armazena o objeto no banco de dados*/
-
-	    			
-
-			}
-
-			// const adicionarContato = (function () {
-			
-
-			// 	tx.addEventListener('complete', function (event) {
-			// 		console.log('Adicionado com sucesso')
-			// 	});
-			// 	tx.addEventListener('error', function (event) {
-			// 		console.log('Houve um erro na transação: ' + event.target.erroCode);
-			// 	});
-
-			// let objectStore = tx.objectStore('Contatos');
-			// 	objectStore.add( { nome: 'Isaque', telefone: '456465', email: 'hgajkghajkga' } )
-
-
-
-			// })();
-		})
+				};
+		});
 
 		
 
