@@ -70,9 +70,14 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 					
 					tx.oncomplete = function (event) {
 						console.log('Transação bem sucedida, adicionado ao banco')
+						//Quando a transação é bem sucedida mostra um aviso 
+						let statusBOX = document.getElementById('statusBox'); 
+						statusBOX.style.visibility = 'visible';
+						statusBOX.style.opacity = '1';
 					};
 					tx.onerror = function (event) {
 						console.log('Erro ao adicionar ao banco');
+						alert('Ocorreu um erro ao adicionar ao banco. Erro: ' + event.target.errorCode)
 					}
 
 				 let objectStore = tx.objectStore('Contatos');

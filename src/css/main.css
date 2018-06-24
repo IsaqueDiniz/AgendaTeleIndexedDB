@@ -22,22 +22,38 @@ body {
 		grid-area: header;
 		justify-self: stretch;
 		display: flex;
+		justify-content: space-between; 
 		align-items: center;
 		background: #794FCE;
 		padding-left: 2%;
 		border-bottom: 3px solid grey;
 	}
 
-		header > img {
-			width: 5%;
-		}
+		header > div { display: flex; align-items: center;}
+			header div > img {
+				width: 5%;
+			}
 
-		h1.title {
-			font-family: 'Cabin', serif;
-			color: #F8BA39;
-			text-shadow: 1px 1px 1px #545454;
-			letter-spacing: 0.1em;
-			font-size: 40px;
+			h1.title {
+				font-family: 'Cabin', serif;
+				color: #F8BA39;
+				text-shadow: 1px 1px 1px #545454;
+				letter-spacing: 0.1em;
+				font-size: 40px;
+			} 
+
+		p.statusBox  {
+			background: #CAFFD3;
+			border: 2px solid #1F7818;
+			color: #1F7818;
+			padding: 0.5em 0.75em;
+			border-radius: 5px 5px;
+			margin-right: 1em;
+			font-size: 0.75em;
+			text-align: center;
+			visibility: hidden;
+			transition: 500ms ease-in;
+			opacity: 0;
 		}
 
 	aside {
@@ -128,10 +144,7 @@ body {
 				text-align: center;
 				box-shadow: 0px 5px 5px grey;
 			}
-/*
-				p.nomeAlert   { display: block; }
-				p.numeroAlert { display: block; }
-				p.emailAlert  { display: block; }*/
+
 	section {
 		grid-area: section;
 		justify-self: stretch;
@@ -150,7 +163,6 @@ body {
 		}
 
 		section hr { margin: 0.5em 0; width: 100% }
-
 		section table {
 			width: 100%;
 			text-align: center;
