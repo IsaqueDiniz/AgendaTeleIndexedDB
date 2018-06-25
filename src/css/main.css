@@ -52,7 +52,7 @@ body {
 			font-size: 0.75em;
 			text-align: center;
 			visibility: hidden;
-			transition: 500ms ease-in;
+			transition: 250ms ease-in;
 			opacity: 0;
 		}
 
@@ -111,21 +111,30 @@ body {
 
 				}
 
-			div.asideControlerBox > button {
-				align-self: center;
-				margin: 5%;
-				border: 2px solid transparent;
+				button {
+					align-self: center;
+					margin: 5%;
+					border: 2px solid #BABBE7;
+					padding: 0.5em 1.5em ;
+					border-radius: 2px 2px;
+					font-size: 1em;
+					font-weight: bold;
+					background: #DEDFFF;
+					color: #BABBE7;
+					transition: 100ms ease-out;			
+				}
+
+			div.asideControlerBox > button.addBTN {
 				background: #794FCE;
-				padding: 0.5em 1.5em ;
-				border-radius: 2px 2px;
-				font-size: 1em;
+				border-color: #794FCE;
 				color: #DEDFFF;
-				font-weight: bold;
 				cursor: pointer;
 				transition: 100ms ease-out;
+				visibility: visible;
+				opacity: 1;
 			}
 
-				div.asideControlerBox > button:hover {
+				div.asideControlerBox > button.addBTN:hover {
 					transition: 100ms ease-in;
 					border-color: #794FCE;
 					color: #794FCE;
@@ -180,4 +189,3 @@ body {
 					color: #DDCCFC;
 					background: #794FCE;
 				}
-

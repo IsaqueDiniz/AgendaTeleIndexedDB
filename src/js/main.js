@@ -19,26 +19,25 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 		sendBTN = document.getElementById('addBTN'); /*Pega as mensagens*/
 					
 					for ( let i = 0; i < inputs.length; i++) {
-						inputs[i].addEventListener('input', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
+						inputs[i].addEventListener('blur', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
 							/*Faz a manipulação da amostra da msg para cada elemento do loop*/
 							if (event.target.value == '' ) {
 								alertas[i].style.display = 'block';
-								sendBTN.disabled = true;
-								inputsStateOK = false;
 							};
 							if (event.target.value !== '' ) {
 								alertas[i].style.display = 'none';
+							};				
+						});
+						inputs[i].addEventListener('blur', function() {
+							if((inputs[0].value == '') || (inputs[1].value == '') || (inputs[2].value == '')) {
+								sendBTN.disabled = true;
+								sendBTN.removeAttribute('class');
+							}else {
 								sendBTN.disabled = false;
-								inputsStateOK = true;
-							};
+								sendBTN.setAttribute('class', 'addBTN');
+								};
 						});
 					};
-
-			if (inputsStateOK !== true) { /*Ativa ou desativa o botão de envio de acordo com os status dos inputs*/
-				sendBTN.disabled = true;
-			}else {
-				sendBTN.disabled = false;
-			}
 
 		request.addEventListener('error', function (event) {
 			console.log('Aconteceu um erro: ' + event.target.errorCode);
@@ -73,7 +72,16 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 						//Quando a transação é bem sucedida mostra um aviso 
 						let statusBOX = document.getElementById('statusBox'); 
 						statusBOX.style.visibility = 'visible';
-						statusBOX.style.opacity = '1';
+						statusBOX.style.opacity = '1';							
+						setTimeout(function() {
+							statusBOX.style.opacity = '0';	
+							statusBOX.style.visibility = 'hidden';
+						}, 2000);
+						for (let i = 0; i < inputs.length; i++) {
+								inputs[i].value = '';
+							};
+						sendBTN.disabled = true;
+						sendBTN.removeAttribute('class');
 					};
 					tx.onerror = function (event) {
 						console.log('Erro ao adicionar ao banco');
@@ -83,12 +91,4 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 				 let objectStore = tx.objectStore('Contatos');
 	    			 objectStore.add(Contatos); /*Armazena o objeto no banco de dados*/
 				};
-		});
-
-		
-
-
-
-
-
-		
+		});	
