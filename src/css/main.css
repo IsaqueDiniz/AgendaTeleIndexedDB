@@ -189,3 +189,13 @@ body {
 					color: #DDCCFC;
 					background: #794FCE;
 				}
+
+		button#refreshBTN {
+			border-color: #794FCE;
+			color: #794FCE;
+			background: #DEDFFF;
+			margin: 0;
+			cursor: pointer;
+			transform: scale(0.75);
+			align-self: flex-end
+		}
