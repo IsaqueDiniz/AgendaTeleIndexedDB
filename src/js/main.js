@@ -11,13 +11,10 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 		store, /*Instancia do db para criação e manipulação do objectStore*/
 		index; /*Define um index*/
 
-	let inputsStateOK = null; /*Variavel que muda de acordo com o status dos inputs*/
-
 	const
 		inputs 	= document.getElementsByClassName('input'), /*Pega todos inputs*/
 		alertas = document.getElementsByClassName('Alert'), /*Pega as mensagens*/
-		sendBTN = document.getElementById('addBTN'),
-		refrBTN = document.getElementById('refreshBTN');
+		sendBTN = document.getElementById('addBTN');
 					
 					for ( let i = 0; i < inputs.length; i++) {
 						inputs[i].addEventListener('blur', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
@@ -90,29 +87,30 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 					};
 					let objectStore = tx.objectStore('Contatos');
 		    			 objectStore.add(Contatos); /*Armazena o objeto no banco de dados*/
+					GetResources();
 				};
 
 
-
-				refrBTN.onclick = function (event) {
+				GetResources();
+				function GetResources (event) {
 					const tabela = document.getElementById('contatosView'); 
-					console.log('get func');
+					tabela.innerHTML = '';
 					let Get = db.transaction(['Contatos'], 'readwrite').objectStore('Contatos'); /*Cria transação 'get'*/
 
-					Get.openCursor().onsuccess = function (event) {
+					Get.openCursor().onsuccess = function(event) {
 						let cursor = event.target.result;
 						let state = '';
 							if(cursor) {
-								console.log(cursor.value.nome);
+								console.log(cursor.value.nome + ' recuperado com sucesso');
 								 state += '<tr>';
-								 state += 	'<td>' + cursor.key + '</td>';
+								 state += 	'<td class="numberCell">' + cursor.key + '</td>';
 								 state += 	'<td>' + cursor.value.nome + '</td>';
 								 state +=   '<td>' + cursor.value.telefone + '</td>';
 								 state +=   '<td>' + cursor.value.email + '</td>';
-								 state += '</tr>' 
-								cursor.continue();
+								 state += '</tr>' ;
+								 cursor.continue();
 							}else {
-								console.log('azedou')
+								console.log('Terminada recuperação de dados');
 							};
 						tabela.innerHTML += state;
 					}; 

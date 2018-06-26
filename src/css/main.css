@@ -157,7 +157,7 @@ body {
 	section {
 		grid-area: section;
 		justify-self: stretch;
-		padding: 4% 5%;
+		padding: 4% 2.5%;
 		overflow: auto;
 		background: #DDCCFC;
 		display: flex;
@@ -177,10 +177,13 @@ body {
 			text-align: center;
 			border: 2px solid #794FCE;
 			border-collapse: collapse;
-			margin-top: 1.5em;
+			/*margin-top: 1.5em;*/
 		}
 
-			section div table  tr th, section  div table  tr td{
+			section div table tr th,
+			section  div table  tr td,
+			section table tr th,
+			section table tr td{
 				border: 2px solid #794FCE;
 				height: 2em;
 			}
@@ -188,6 +191,10 @@ body {
 				tr.tableHeader {
 					color: #DDCCFC;
 					background: #794FCE;
+				}
+
+				td.numberCell {
+					padding: 1.5% 1.5%;
 				}
 
 		button#refreshBTN {
