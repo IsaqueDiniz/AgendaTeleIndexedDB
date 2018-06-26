@@ -87,32 +87,32 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 					};
 					let objectStore = tx.objectStore('Contatos');
 		    			 objectStore.add(Contatos); /*Armazena o objeto no banco de dados*/
-					GetResources();
+					GetResources(); /*Chama a função para atualizar a view*/
 				};
 
 
-				GetResources();
-				function GetResources (event) {
+				GetResources(); /*Chama essa função para carregar view com os dados ao iniciar aplicativo*/
+				function GetResources (event) { /*Essa função recupera os dados do banco*/
 					const tabela = document.getElementById('contatosView'); 
-					tabela.innerHTML = '';
+					tabela.innerHTML = ''; /*reseta a tabela para quando for adicionado novos dados não se repetir os antigos*/
 					let Get = db.transaction(['Contatos'], 'readwrite').objectStore('Contatos'); /*Cria transação 'get'*/
 
 					Get.openCursor().onsuccess = function(event) {
 						let cursor = event.target.result;
-						let state = '';
+						let state = ''; /*variavel para ser somada ao inner da tabela*/
 							if(cursor) {
 								console.log(cursor.value.nome + ' recuperado com sucesso');
 								 state += '<tr>';
-								 state += 	'<td class="numberCell">' + cursor.key + '</td>';
-								 state += 	'<td>' + cursor.value.nome + '</td>';
-								 state +=   '<td>' + cursor.value.telefone + '</td>';
-								 state +=   '<td>' + cursor.value.email + '</td>';
+								 state += 	'<td class="tindex">' + cursor.key + '</td>';
+								 state += 	'<td class="tnome">' + cursor.value.nome + '</td>';
+								 state +=   '<td class="ttelefone">' + cursor.value.telefone + '</td>';
+								 state +=   '<td class="temail">' + cursor.value.email + '</td>';
 								 state += '</tr>' ;
 								 cursor.continue();
 							}else {
 								console.log('Terminada recuperação de dados');
 							};
-						tabela.innerHTML += state;
+						tabela.innerHTML += state; /*adiciona os dados no final do loop*/
 					}; 
 				};
 

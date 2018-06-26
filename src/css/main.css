@@ -171,30 +171,29 @@ body {
 			font-size: 20px;
 		}
 
-		section hr { margin: 0.5em 0; width: 100% }
-		section div table {
-			width: 100%;
+		section table {
 			text-align: center;
-			border: 2px solid #794FCE;
 			border-collapse: collapse;
-			/*margin-top: 1.5em;*/
 		}
 
-			section div table tr th,
-			section  div table  tr td,
+			section table tr th,
+			section  table tr td,
 			section table tr th,
 			section table tr td{
 				border: 2px solid #794FCE;
 				height: 2em;
 			}
 
-				tr.tableHeader {
+				.tindex    { width: 5%; }
+				.tnome     { width: 35%; }
+				.ttelefone { width :15% }
+				.temail    { width: 45%; }
+
+				section > table.h { margin-top: 1em; }
+
+				tr.tableHeader, .tableHeader {
 					color: #DDCCFC;
 					background: #794FCE;
-				}
-
-				td.numberCell {
-					padding: 1.5% 1.5%;
 				}
 
 		button#refreshBTN {
