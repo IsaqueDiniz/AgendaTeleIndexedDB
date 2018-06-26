@@ -15,9 +15,9 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 
 	const
 		inputs 	= document.getElementsByClassName('input'), /*Pega todos inputs*/
-		alertas = document.getElementsByClassName('Alert'),
+		alertas = document.getElementsByClassName('Alert'), /*Pega as mensagens*/
 		sendBTN = document.getElementById('addBTN'),
-		refrBTN = document.getElementById('refreshBTN'); /*Pega as mensagens*/
+		refrBTN = document.getElementById('refreshBTN');
 					
 					for ( let i = 0; i < inputs.length; i++) {
 						inputs[i].addEventListener('blur', function (event) { /*Começa a fazer a avaliação quando o usuário começa a digitar*/
@@ -95,15 +95,26 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 
 
 				refrBTN.onclick = function (event) {
+					const tabela = document.getElementById('contatosView'); 
 					console.log('get func');
 					let Get = db.transaction(['Contatos'], 'readwrite').objectStore('Contatos'); /*Cria transação 'get'*/
 
 					Get.openCursor().onsuccess = function (event) {
 						let cursor = event.target.result;
+						let state = '';
 							if(cursor) {
-								console.log(cursor);
+								console.log(cursor.value.nome);
+								 state += '<tr>';
+								 state += 	'<td>' + cursor.key + '</td>';
+								 state += 	'<td>' + cursor.value.nome + '</td>';
+								 state +=   '<td>' + cursor.value.telefone + '</td>';
+								 state +=   '<td>' + cursor.value.email + '</td>';
+								 state += '</tr>' 
 								cursor.continue();
-							}else { console.log('azedou') };
+							}else {
+								console.log('azedou')
+							};
+						tabela.innerHTML += state;
 					}; 
 				};
 
