@@ -50,6 +50,7 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 
 		// Operação do banco de dados
 		request.addEventListener('success', function (event) {
+			setTimeout(openMsg, 500);
 			console.log('Banco aberto com sucesso');
 			db = event.target.result; /*Cria objeto para manipulção do banco de dados*/
 
@@ -68,18 +69,7 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 					tx.oncomplete = function (event) {
 						console.log('Transação bem sucedida, adicionado ao banco')
 						//Quando a transação é bem sucedida mostra um aviso 
-						let statusBOX = document.getElementById('statusBox'); 
-						statusBOX.style.visibility = 'visible';
-						statusBOX.style.opacity = '1';							
-						setTimeout(function() { /*Apaga o aviso da tela*/
-							statusBOX.style.opacity = '0';	
-							statusBOX.style.visibility = 'hidden';
-						}, 2000);
-						for (let i = 0; i < inputs.length; i++) {
-								inputs[i].value = ''; /*Reseta os valores dos inputs*/
-							};
-						sendBTN.disabled = true; /*Desabilita o controle*/
-						sendBTN.removeAttribute('class'); 
+						onTransactionSuccess();
 					};
 					tx.onerror = function (event) {
 						console.log('Erro ao adicionar ao banco');
@@ -107,9 +97,10 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 								 state += 	'<td class="tnome">' + cursor.value.nome + '</td>';
 								 state +=   '<td class="ttelefone">' + cursor.value.telefone + '</td>';
 								 state +=   '<td class="temail">' + cursor.value.email + '</td>';
+								 state +=   '<td class="texcluir">' + ' X ' + '</td>';
 								 state += '</tr>' ;
 								 cursor.continue();
-							}else {
+							}else { 
 								console.log('Terminada recuperação de dados');
 							};
 						tabela.innerHTML += state; /*adiciona os dados no final do loop*/
@@ -118,3 +109,27 @@ window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndex
 
 		});	
 
+	function openMsg () {
+		const alert = document.getElementById('openMessage');
+		alert.style.visibility = 'visible';
+		alert.style.opacity = '1';
+		setTimeout(function() {
+			alert.style.opacity = '0';
+			alert.style.visible = 'hidden';
+		}, 2000);
+	};
+
+	function onTransactionSuccess () {
+		const statusBOX = document.getElementById('statusBox'); 
+		statusBOX.style.visibility = 'visible';
+		statusBOX.style.opacity = '1';							
+		setTimeout(function() { /*Apaga o aviso da tela*/
+			statusBOX.style.opacity = '0';	
+			statusBOX.style.visibility = 'hidden';
+		}, 2000);
+		for (let i = 0; i < inputs.length; i++) {
+				inputs[i].value = ''; /*Reseta os valores dos inputs*/
+			};
+		sendBTN.disabled = true; /*Desabilita o controle*/
+		sendBTN.removeAttribute('class'); 	
+	}

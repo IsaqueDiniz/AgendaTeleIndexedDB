@@ -187,8 +187,9 @@ body {
 				.tindex    { width: 5%; }
 				.tnome     { width: 35%; }
 				.ttelefone { width :15% }
-				.temail    { width: 45%; }
-
+				.temail    { width: 40%; }
+				.texcluir  { width: 5%; color: darkred; cursor: pointer;}
+				
 				section > table.h { margin-top: 1em; }
 
 				tr.tableHeader, .tableHeader {
