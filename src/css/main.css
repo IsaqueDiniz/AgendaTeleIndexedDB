@@ -171,6 +171,21 @@ body {
 			font-size: 20px;
 		}
 
+		section > span button.saveModBTN {
+			background: #CAFFD3;
+			border: 2px solid #1F7818;
+			margin: 0;
+			color: #1F7818;
+			border-radius: 2px 2px;
+			margin-right: 1em;
+			font-size: 0.6em;
+			/*visibility: hidden;*/
+			transition: 250ms ease-in;
+			/*opacity: 0;			*/
+			float: right;
+
+		}
+
 		section table {
 			text-align: center;
 			border-collapse: collapse;
